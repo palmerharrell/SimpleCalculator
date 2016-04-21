@@ -8,6 +8,8 @@ namespace SimpleCalculator
 {
   public class Calculation
   {
+    public int calcCounter { get; set; }
+
     public int Add(int num1, int num2)
     {
         return num1 + num2;

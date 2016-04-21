@@ -8,16 +8,17 @@ namespace SimpleCalculator
 {
   class Program
   {
-    // Should only receive user input and print output
     static void Main(string[] args)
     {
       
       bool endProgram = false;
+      Calculation calc = new Calculation();
+      calc.calcCounter = 0;
 
       while (!endProgram)
       {
         //Console.Clear();
-        Console.Write("\n[X]> ");
+        Console.Write("\n[{0}]> ", calc.calcCounter);
         string userInput = Console.ReadLine();
 
         if (userInput.ToUpper() == "QUIT" || userInput.ToUpper() == "EXIT")
