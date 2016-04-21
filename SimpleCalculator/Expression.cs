@@ -13,7 +13,13 @@ namespace SimpleCalculator
     private char? _operator = null;
     private Array _operands = new int?[] { null, null };
 
-    public char? Operator { get; }
+    public char? Operator
+    {
+      get
+      {
+        return _operator;
+      }
+    }
 
     public Array Operands
     {
@@ -25,7 +31,7 @@ namespace SimpleCalculator
 
     public bool ParseStr(string userInput)
     {
-      return true;
+      return false;
     }
 
 

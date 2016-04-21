@@ -7,44 +7,54 @@ namespace SimpleCalculatorTests
   [TestClass]
   public class ExpressionTests
   {
-    [TestMethod]
+    [TestMethod] // DONE
     public void ParseStrTestPass()
     {
       var testExpression = new Expression();
       Assert.IsTrue(testExpression.ParseStr("1+2"));
     }
 
-    [TestMethod]
+    [TestMethod] // DONE
     public void ParseStrTestFail()
     {
       var testExpression = new Expression();
       Assert.IsFalse(testExpression.ParseStr("1+"));
     }
 
-    [TestMethod] // check for Array of Ints matching operands in string
+    [TestMethod] // DONE (probably)
     public void getOperandsTestPass()
     {
+      // check for Array of Ints matching operands in string
       var testExpression = new Expression();
       testExpression.ParseStr("1+2");
-      Assert.AreEqual(new int[] { 1, 2 }, testExpression.Operands);
+      Assert.AreEqual(new int?[] { 1, 2 }, testExpression.Operands);
     }
 
-    [TestMethod] // pass bad string and check that operands are null
+    [TestMethod] // DONE (probably)
     public void getOperandsTestFail()
     {
-      
+      // pass bad string and check that operands are null
+      var testExpression = new Expression();
+      testExpression.ParseStr("1+");
+      Assert.AreEqual(new int?[] { null, null }, testExpression.Operands);
     }
 
-    [TestMethod] // check for Operator char matching opertor in string
+    [TestMethod] // DONE (probably)
     public void getOperatorTestPass()
     {
-      
+      // check for Operator char matching opertor in string
+      var testExpression = new Expression();
+      testExpression.ParseStr("12+22");
+      Assert.AreEqual('+', testExpression.Operator);
     }
 
-    [TestMethod] // pass bad string and check that operator is null
+    [TestMethod] // DONE (probably)
     public void getOperatorTestFail()
     {
-      
+      // pass bad string and check that operator is null
+      var testExpression = new Expression();
+      testExpression.ParseStr("12+");
+      Assert.IsNull(testExpression.Operator);
     }
   }
 }
