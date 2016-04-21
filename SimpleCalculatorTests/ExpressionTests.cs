@@ -5,7 +5,7 @@ using SimpleCalculator;
 namespace SimpleCalculatorTests
 {
   [TestClass]
-  public class UnitTest1
+  public class ExpressionTests
   {
     [TestMethod]
     public void ParseStrTestPass()

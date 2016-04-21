@@ -11,15 +11,13 @@ namespace SimpleCalculator
     // Should only receive user input and print output
     static void Main(string[] args)
     {
-      Calculator calc = new Calculator();
+      
       bool endProgram = false;
 
       while (!endProgram)
       {
-        int calcCount = calc.numberofCalculations;
-
         //Console.Clear();
-        Console.Write("\n[{0}]> ", calcCount);
+        Console.Write("\n[X]> ");
         string userInput = Console.ReadLine();
 
         if (userInput.ToUpper() == "QUIT" || userInput.ToUpper() == "EXIT")
