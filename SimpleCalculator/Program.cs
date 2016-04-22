@@ -42,7 +42,8 @@ namespace SimpleCalculator
             break;
           default:
             expr.ParseStr(userInput); // LATER: put in an if to determine if string is valid
-            // display: result, error, other messages
+            // Check constAdded flag, skip calculation if declaring a constant
+            // display: result or error
             calc.calcCounter++;
             break;
         }
