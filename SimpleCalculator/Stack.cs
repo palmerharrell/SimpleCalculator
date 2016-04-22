@@ -9,7 +9,7 @@ namespace SimpleCalculator
   public class Stack
   {
     public string lastQ { get; set; }
-    public int lastA { get; set; }
+    public int? lastA { get; set; }
 
 
   } // Stack class

@@ -10,35 +10,40 @@ namespace SimpleCalculator
   {
     static void Main(string[] args)
     {
-      
-      bool endProgram = false;
       Calculation calc = new Calculation();
+      Stack history = new Stack();
+      bool endProgram = false;
+
       calc.calcCounter = 0;
+      history.lastQ = null;
+      history.lastA = null;
 
       while (!endProgram)
       {
-        //Console.Clear();
         Console.Write("\n[{0}]> ", calc.calcCounter);
         string userInput = Console.ReadLine();
 
-        if (userInput.ToUpper() == "QUIT" || userInput.ToUpper() == "EXIT")
+        switch (userInput.ToUpper())
         {
-          endProgram = true;
-          Console.WriteLine("\nGoodbye\n");
-        }
-        else if (userInput.ToUpper() == "LAST")
-        {
-          //Console.Clear();
-          Console.WriteLine("\nPrint result of last calculation here.\n");
-        }
-        else if (userInput.ToUpper() == "LASTQ")
-        {
-          //Console.Clear();
-          Console.WriteLine("\nPrint last calculation here.\n");
+          case "QUIT":
+            endProgram = true;
+            Console.WriteLine("\nGoodbye\n");
+            break;
+          case "EXIT":
+            endProgram = true;
+            Console.WriteLine("\nGoodbye\n");
+            break;
+          case "LAST":
+            Console.WriteLine(history.lastA);
+            break;
+          case "LASTQ":
+            Console.WriteLine(history.lastQ);
+            break;
+          default:
+            // PARSE INPUT STRING HERE
+            break;
         }
       }
-      
-
       
     } // Main
   } // Program

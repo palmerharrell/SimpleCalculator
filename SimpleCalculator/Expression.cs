@@ -29,6 +29,7 @@ namespace SimpleCalculator
       }
     }
 
+    // get and store operands & operator
     public bool ParseStr(string userInput)
     {
 
