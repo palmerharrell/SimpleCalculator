@@ -14,6 +14,9 @@ namespace SimpleCalculator
       Calculation calc = new Calculation();
       Stack history = new Stack();
       bool endProgram = false;
+      char? operation;
+      int?[] operands;
+      int result;
 
       calc.calcCounter = 0;
       history.lastQ = null;
@@ -43,11 +46,46 @@ namespace SimpleCalculator
           default:
             if(expr.ParseStr(userInput))
             {
-              // Check constAdded & constAlreadyExists flags, skip calculation if declaring a constant
+              // Check constAdded flag 
+              //   skip calculation if declaring a constant
+              if (expr.constAdded)
+              {
+                Console.WriteLine("Constant saved for future use.");
+                break; // Skip calculation
+              }
+              else if (expr.constAlreadyExists)
+              {
+                Console.WriteLine("Constant already has a value.");
+                break; // Skip calculation
+              }
+              else
+              {
+                operation = expr.Operator;
+                operands = expr.Operands;
 
-              // display: result or error
-              // If successful, update lastQ & lastA
-              // calc.calcCounter++; // This is done in Calculation class now
+                switch (operation)
+                {
+                  case '+':
+                    result = calc.Add((int)operands[0], (int)operands[1]);
+                    Console.WriteLine("     = {0}", result);
+                    break;
+                  case '-':
+                    result = calc.Subtract((int)operands[0], (int)operands[1]);
+                    Console.WriteLine("     = {0}", result);
+                    break;
+                  case '*':
+                    result = calc.Multiply((int)operands[0], (int)operands[1]);
+                    Console.WriteLine("     = {0}", result);
+                    break;
+                  case '/':
+                    result = calc.Divide((int)operands[0], (int)operands[1]);
+                    Console.WriteLine("     = {0}", result);
+                    break;
+                  default:
+                    Console.WriteLine("THIS SHOULDN'T HAPPEN");
+                    break;
+                }
+              }
             }
             else // userInput invalid
             {

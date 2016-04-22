@@ -12,8 +12,8 @@ namespace SimpleCalculator
     private int _operand1;
     private int _operand2;
     private char? _operator = null;
-    private Array _operands = new int?[] { null, null };
-    //private Dictionary<char, int> _constants = new Dictionary<char, int>();
+    // private Array _operands = new int?[] { null, null };
+    private int?[] _operands = new int?[] { null, null };
     private ConcurrentDictionary<char, int> _constants = new ConcurrentDictionary<char, int>();
     private bool _constAdded = false;
     private bool _constAlreadyExists = false;
@@ -26,7 +26,7 @@ namespace SimpleCalculator
       }
     }
 
-    public Array Operands
+    public int?[] Operands
     {
       get
       {
@@ -50,7 +50,7 @@ namespace SimpleCalculator
       }
     }
 
-    // IN PROGRESS
+    
     public bool ParseStr(string userInput)
     {
       int opIndex;
@@ -91,7 +91,7 @@ namespace SimpleCalculator
         if(!_constants.TryAdd(constChar, constValue))
         {
           _constAlreadyExists = true;
-          return false; // Constant already has a value
+          return true;
         }
         _constAdded = true;
         return true; // Constant successfully saved
@@ -165,11 +165,8 @@ namespace SimpleCalculator
         // Store operands in operands array
         _operands.SetValue(_operand1, 0);
         _operands.SetValue(_operand2, 1);
-        Console.WriteLine("_operands[0]: {0}", _operands.GetValue(0));
-        Console.WriteLine("_operands[1]: {0}", _operands.GetValue(1));
 
         return true; // All good, ready for calculation
-
       }
       
     } // ParseStr method
