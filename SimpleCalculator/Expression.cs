@@ -9,8 +9,8 @@ namespace SimpleCalculator
 {
   public class Expression
   {
-    // private int? _operand1 = null; // Don't think these will be needed
-    // private int? _operand2 = null;
+    private int _operand1;
+    private int _operand2;
     private char? _operator = null;
     private Array _operands = new int?[] { null, null };
     //private Dictionary<char, int> _constants = new Dictionary<char, int>();
@@ -56,12 +56,14 @@ namespace SimpleCalculator
       int opIndex;
       string substring1 = "";
       string substring2 = "";
-      char constChar;
+      char constChar; // used for both getting and setting constants
       int constValue;
 
       // Reset vars first
       //_operand1 = null;
       //_operand2 = null;
+      _operands.SetValue(null, 0);
+      _operands.SetValue(null, 1);
       _operator = null;
       _constAdded = false;
       _constAlreadyExists = false;
@@ -95,7 +97,7 @@ namespace SimpleCalculator
         return true; // Constant successfully saved
       }
 
-      else // Check for operator
+      else // Check for operator, operands, constants
       {
         if (userInput.IndexOf("+") != -1)
         {
@@ -126,11 +128,50 @@ namespace SimpleCalculator
         substring2 = userInput.Substring(userInput.IndexOf((char)_operator) + 1);
 
         // check if substrings are ints, if not, check if they are constants, if not, return false
-        // if substrings are ints, store in Operands array and return true
-        // _operand1 & _operand2 not needed?
-        
+        if (!int.TryParse(substring1, out _operand1))
+        {
+          if (Char.TryParse(substring1, out constChar))
+          {
+            if(!_constants.TryGetValue(constChar, out _operand1))
+            {
+              _operator = null; // to make unit test happy
+              return false; // Not in constants dictionary
+            }
+          }
+          else
+          {
+            _operator = null; // to make unit test happy
+            return false; // Not a char
+          }
+        }
+
+        if (!int.TryParse(substring2, out _operand2))
+        {
+          if (Char.TryParse(substring2, out constChar))
+          {
+            if (!_constants.TryGetValue(constChar, out _operand2))
+            {
+              _operator = null; // to make unit test happy
+              return false; // Not in constants dictionary
+            }
+          }
+          else
+          {
+            _operator = null; // to make unit test happy
+            return false; // Not a char
+          }
+        }
+
+        // Store operands in operands array
+        _operands.SetValue(_operand1, 0);
+        _operands.SetValue(_operand2, 1);
+        Console.WriteLine("_operands[0]: {0}", _operands.GetValue(0));
+        Console.WriteLine("_operands[1]: {0}", _operands.GetValue(1));
+
+        return true; // All good, ready for calculation
+
       }
-      return true; //TEMPORARY
+      
     } // ParseStr method
 
 

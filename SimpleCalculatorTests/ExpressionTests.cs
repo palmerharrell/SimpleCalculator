@@ -27,7 +27,8 @@ namespace SimpleCalculatorTests
       // check for Array of Ints matching operands in string
       var testExpression = new Expression();
       testExpression.ParseStr("1+2");
-      Assert.AreEqual(new int?[] { 1, 2 }, testExpression.Operands);
+      Assert.AreEqual(1, testExpression.Operands.GetValue(0));
+      Assert.AreEqual(2, testExpression.Operands.GetValue(1));
     }
 
     [TestMethod] // DONE (probably)
@@ -36,7 +37,8 @@ namespace SimpleCalculatorTests
       // pass bad string and check that operands are null
       var testExpression = new Expression();
       testExpression.ParseStr("1+");
-      Assert.AreEqual(new int?[] { null, null }, testExpression.Operands);
+      Assert.IsNull(testExpression.Operands.GetValue(0));
+      Assert.IsNull(testExpression.Operands.GetValue(1));
     }
 
     [TestMethod] // DONE (probably)

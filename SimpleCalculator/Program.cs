@@ -41,11 +41,17 @@ namespace SimpleCalculator
             Console.WriteLine(history.lastQ);
             break;
           default:
-            expr.ParseStr(userInput); // LATER: put in an if to determine if string is valid
-            // Check constAdded & constAlreadyExists flags, skip calculation if declaring a constant
-            // display: result or error
-            // If successful, update lastQ & lastA, add one to counter
-            calc.calcCounter++;
+            if(expr.ParseStr(userInput))
+            {
+              // Check constAdded & constAlreadyExists flags, skip calculation if declaring a constant
+              // display: result or error
+              // If successful, update lastQ & lastA, add one to counter
+              calc.calcCounter++;
+            }
+            else // userInput invalid
+            {
+              Console.WriteLine("Invalid expression. Please try again.");
+            }
             break;
         }
       }
