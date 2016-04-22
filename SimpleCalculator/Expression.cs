@@ -12,7 +12,6 @@ namespace SimpleCalculator
     private int _operand1;
     private int _operand2;
     private char? _operator = null;
-    // private Array _operands = new int?[] { null, null };
     private int?[] _operands = new int?[] { null, null };
     private ConcurrentDictionary<char, int> _constants = new ConcurrentDictionary<char, int>();
     private bool _constAdded = false;
@@ -60,8 +59,6 @@ namespace SimpleCalculator
       int constValue;
 
       // Reset vars first
-      //_operand1 = null;
-      //_operand2 = null;
       _operands.SetValue(null, 0);
       _operands.SetValue(null, 1);
       _operator = null;

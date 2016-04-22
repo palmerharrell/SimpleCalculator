@@ -38,10 +38,10 @@ namespace SimpleCalculator
             Console.WriteLine("\nGoodbye\n");
             break;
           case "LAST":
-            Console.WriteLine(history.lastA);
+            Console.WriteLine("\n{0}", history.lastA);
             break;
           case "LASTQ":
-            Console.WriteLine(history.lastQ);
+            Console.WriteLine("\n{0}", history.lastQ);
             break;
           default:
             if(expr.ParseStr(userInput))
@@ -62,23 +62,28 @@ namespace SimpleCalculator
               {
                 operation = expr.Operator;
                 operands = expr.Operands;
+                history.lastQ = userInput;
 
                 switch (operation)
                 {
                   case '+':
                     result = calc.Add((int)operands[0], (int)operands[1]);
+                    history.lastA = result;
                     Console.WriteLine("     = {0}", result);
                     break;
                   case '-':
                     result = calc.Subtract((int)operands[0], (int)operands[1]);
+                    history.lastA = result;
                     Console.WriteLine("     = {0}", result);
                     break;
                   case '*':
                     result = calc.Multiply((int)operands[0], (int)operands[1]);
+                    history.lastA = result;
                     Console.WriteLine("     = {0}", result);
                     break;
                   case '/':
                     result = calc.Divide((int)operands[0], (int)operands[1]);
+                    history.lastA = result;
                     Console.WriteLine("     = {0}", result);
                     break;
                   default:
