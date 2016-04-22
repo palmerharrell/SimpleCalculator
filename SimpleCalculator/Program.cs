@@ -44,9 +44,10 @@ namespace SimpleCalculator
             if(expr.ParseStr(userInput))
             {
               // Check constAdded & constAlreadyExists flags, skip calculation if declaring a constant
+
               // display: result or error
-              // If successful, update lastQ & lastA, add one to counter
-              calc.calcCounter++;
+              // If successful, update lastQ & lastA
+              // calc.calcCounter++; // This is done in Calculation class now
             }
             else // userInput invalid
             {
