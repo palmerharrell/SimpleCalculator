@@ -10,6 +10,7 @@ namespace SimpleCalculator
   {
     static void Main(string[] args)
     {
+      Expression expr = new Expression();
       Calculation calc = new Calculation();
       Stack history = new Stack();
       bool endProgram = false;
@@ -40,7 +41,9 @@ namespace SimpleCalculator
             Console.WriteLine(history.lastQ);
             break;
           default:
-            // PARSE INPUT STRING HERE
+            expr.ParseStr(userInput); // LATER: put in an if to determine if string is valid
+            // display: result, error, other messages
+            calc.calcCounter++;
             break;
         }
       }
