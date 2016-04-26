@@ -50,13 +50,27 @@ namespace SimpleCalculator
               //   skip calculation if declaring a constant
               if (expr.constAdded)
               {
-                Console.WriteLine("Constant saved for future use.");
+                Console.WriteLine("     Constant saved for future use.");
                 break; // Skip calculation
               }
-              else if (expr.constAlreadyExists)
+
+              // else if (expr.constAlreadyExists)
+              // {
+              //   Console.WriteLine("Constant already has a value.");
+              //   break; // Skip calculation
+              // }
+
+              else if (expr.constLookup) // If single letter, check constants dictionary
               {
-                Console.WriteLine("Constant already has a value.");
-                break; // Skip calculation
+                if (expr.constFound)
+                {
+                  Console.WriteLine("     {0} = {1}", userInput.Trim().ToUpper(), expr.constLookupValue);
+                }
+                else
+                {
+                  Console.WriteLine("     {0} has not been defined.", userInput.Trim().ToUpper());
+                }
+                break;
               }
               else
               {

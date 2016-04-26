@@ -15,7 +15,10 @@ namespace SimpleCalculator
     private int?[] _operands = new int?[] { null, null };
     private ConcurrentDictionary<char, int> _constants = new ConcurrentDictionary<char, int>();
     private bool _constAdded = false;
-    private bool _constAlreadyExists = false;
+    // private bool _constAlreadyExists = false;
+    private bool _constLookup = false;
+    private bool _constFound = false;
+    private int _constValue;
 
     public char? Operator
     {
@@ -33,6 +36,14 @@ namespace SimpleCalculator
       }
     }
 
+    public ConcurrentDictionary<char, int> Constants
+    {
+      get
+      {
+        return _constants;
+      }
+    }
+
     public bool constAdded
     {
       get
@@ -41,15 +52,39 @@ namespace SimpleCalculator
       }
     }
 
-    public bool constAlreadyExists
+    // public bool constAlreadyExists
+    // {
+    //   get
+    //   {
+    //     return _constAlreadyExists;
+    //   }
+    // }
+
+    public bool constLookup
     {
       get
       {
-        return _constAlreadyExists;
+        return _constLookup;
       }
     }
 
-    
+    public bool constFound
+    {
+      get
+      {
+        return _constFound;
+      }
+    }
+
+    public int constLookupValue
+    {
+      get
+      {
+        return _constValue;
+      }
+    }
+
+
     public bool ParseStr(string userInput)
     {
       int opIndex;
@@ -63,7 +98,23 @@ namespace SimpleCalculator
       _operands.SetValue(null, 1);
       _operator = null;
       _constAdded = false;
-      _constAlreadyExists = false;
+      // _constAlreadyExists = false;
+      _constLookup = false;
+      _constFound = false;
+
+      // ~~ TO DO ~~
+      // CHECK FOR CONSTANT LOOKUP FIRST (_constLookup & constLookup vars created)
+      // check for single char and that it exists in dictionary, return true
+      if (userInput.Trim().Count() == 1 && Char.IsLetter(userInput.Trim()[0]))
+      {
+        _constLookup = true;
+        if (_constants.TryGetValue(Char.ToUpper(userInput[0]), out _constValue))
+        {
+          _constFound = true;
+        }
+        return true;
+      }
+
 
       if (userInput.IndexOf("=") != -1) // Check for Constant declaration
       {
@@ -85,9 +136,9 @@ namespace SimpleCalculator
         }
         
         // If both work: try to save as constant in dictionary
-        if(!_constants.TryAdd(constChar, constValue))
+        if(!_constants.TryAdd(Char.ToUpper(constChar), constValue))
         {
-          _constAlreadyExists = true;
+          // _constAlreadyExists = true;
           return true;
         }
         _constAdded = true;
@@ -125,11 +176,11 @@ namespace SimpleCalculator
         substring2 = userInput.Substring(userInput.IndexOf((char)_operator) + 1);
 
         // check if substrings are ints, if not, check if they are constants, if not, return false
-        if (!int.TryParse(substring1, out _operand1))
+        if (!int.TryParse(substring1.Trim(), out _operand1))
         {
-          if (Char.TryParse(substring1, out constChar))
+          if (Char.TryParse(substring1.Trim(), out constChar))
           {
-            if(!_constants.TryGetValue(constChar, out _operand1))
+            if(!_constants.TryGetValue(Char.ToUpper(constChar), out _operand1))
             {
               _operator = null; // to make unit test happy
               return false; // Not in constants dictionary
@@ -142,11 +193,11 @@ namespace SimpleCalculator
           }
         }
 
-        if (!int.TryParse(substring2, out _operand2))
+        if (!int.TryParse(substring2.Trim(), out _operand2))
         {
-          if (Char.TryParse(substring2, out constChar))
+          if (Char.TryParse(substring2.Trim(), out constChar))
           {
-            if (!_constants.TryGetValue(constChar, out _operand2))
+            if (!_constants.TryGetValue(Char.ToUpper(constChar), out _operand2))
             {
               _operator = null; // to make unit test happy
               return false; // Not in constants dictionary
